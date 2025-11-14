@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alejandra Beach House - Your Perfect Ocean Escape</title>
+    <meta name="description" content="Beach house with spectacular ocean view, surrounded by hills. Perfect for families, remote work, and peaceful getaways. Direct beach access and modern amenities.">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="assets/images/favicon.ico">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="assets/css/styles.css">
+    
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Leaflet CSS for Maps -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <h2><i class="fas fa-umbrella-beach"></i> Alejandra Beach House</h2>
+            </div>
+            <div class="nav-menu">
+                <a href="#home" class="nav-link">Home</a>
+                <a href="#gallery" class="nav-link">Gallery</a>
+                <a href="#amenities" class="nav-link">Details</a>
+                <a href="#reviews" class="nav-link">Reviews</a>
+                <a href="#location" class="nav-link">Location</a>
+                <a href="#contact" class="nav-link">Contact</a>
+            </div>
+            <div class="hamburger">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-background">
+            <!-- You'll need to add your spectacular ocean view image here -->
+            <div class="hero-overlay"></div>
+        </div>
+        <div class="hero-content">
+            <h1 class="hero-title">Beach House with Ocean View</h1>
+            <p class="hero-subtitle">Your Perfect Escape</p>
+            <p class="hero-description">A few minutes from the sea • Surrounded by hills • Nature, comfort and good vibes</p>
+            
+            <div class="hero-features">
+                <div class="feature-item">
+                    <i class="fas fa-sunrise"></i>
+                    <span>Sunrises facing the sea from your private terrace</span>
+                </div>
+                <div class="feature-item">
+                    <i class="fas fa-umbrella-beach"></i>
+                    <span>Direct access to the beach, without long walks</span>
+                </div>
+                <div class="feature-item">
+                    <i class="fas fa-users"></i>
+                    <span>Ideal for families, safe and comfortable</span>
+                </div>
+                <div class="feature-item">
+                    <i class="fas fa-wifi"></i>
+                    <span>Fast WiFi, perfect for remote work</span>
+                </div>
+                <div class="feature-item">
+                    <i class="fas fa-utensils"></i>
+                    <span>Close to restaurants and local activities</span>
+                </div>
+            </div>
+            
+            <div class="hero-buttons">
+                <button class="btn-primary" onclick="scrollToSection('contact')">Book Now</button>
+                <button class="btn-secondary" onclick="scrollToSection('gallery')">View Gallery</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Photo Gallery Section -->
+    <section id="gallery" class="gallery-section">
+        <div class="container">
+            <h2 class="section-title">Photo Gallery</h2>
+            <p class="section-subtitle">Discover the beauty of Alejandra Beach House</p>
+            
+            <div class="gallery-tabs">
+                <button class="tab-button active" data-category="all">All Photos</button>
+                <button class="tab-button" data-category="exterior">Exterior & Gardens</button>
+                <button class="tab-button" data-category="rooms">Bedrooms</button>
+                <button class="tab-button" data-category="kitchen">Kitchen</button>
+                <button class="tab-button" data-category="living">Living Areas</button>
+                <button class="tab-button" data-category="terrace">Terrace & Pool</button>
+                <button class="tab-button" data-category="beach">Beach & Surroundings</button>
+                <button class="tab-button" data-category="garage">Parking</button>
+            </div>
+            
+            <div class="gallery-grid">
+                <!-- Gallery items will be populated by JavaScript -->
+                <!-- For now, placeholder structure -->
+                <div class="gallery-item" data-category="exterior">
+                    <img src="assets/images/gallery/exterior-1.jpg" alt="House Exterior" loading="lazy">
+                    <div class="gallery-overlay">
+                        <i class="fas fa-expand"></i>
+                    </div>
+                </div>
+                <!-- More gallery items will be added dynamically -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Technical Details Section -->
+    <section id="amenities" class="amenities-section">
+        <div class="container">
+            <h2 class="section-title">House Details & Amenities</h2>
+            
+            <div class="details-grid">
+                <div class="detail-card">
+                    <h3>Capacity & Rooms</h3>
+                    <div class="detail-list">
+                        <div class="detail-item">
+                            <i class="fas fa-users"></i>
+                            <span>Capacity: 4 people</span>
+                        </div>
+                        <div class="detail-item">
+                            <i class="fas fa-bed"></i>
+                            <span>Bedrooms: 2</span>
+                        </div>
+                        <div class="detail-item">
+                            <i class="fas fa-bath"></i>
+                            <span>Bathrooms: 3</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="detail-card">
+                    <h3>Amenities</h3>
+                    <div class="detail-list">
+                        <div class="detail-item">
+                            <i class="fas fa-couch"></i>
+                            <span>Fully furnished</span>
+                        </div>
+                        <div class="detail-item">
+                            <i class="fas fa-utensils"></i>
+                            <span>Equipped kitchen</span>
+                        </div>
+                        <div class="detail-item">
+                            <i class="fas fa-snowflake"></i>
+                            <span>Air conditioning</span>
+                        </div>
+                        <div class="detail-item">
+                            <i class="fas fa-car"></i>
+                            <span>Parking available</span>
+                        </div>
+                        <div class="detail-item">
+                            <i class="fas fa-seedling"></i>
+                            <span>Beautiful gardens</span>
+                        </div>
+                        <div class="detail-item pets-not-allowed">
+                            <i class="fas fa-ban"></i>
+                            <span>Pets not allowed</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="detail-card pricing-card">
+                    <h3>Pricing & Booking</h3>
+                    <div class="price-info">
+                        <div class="price-season">
+                            <h4>High Season</h4>
+                            <p class="price">$120/night</p>
+                            <small>December - March</small>
+                        </div>
+                        <div class="price-season">
+                            <h4>Low Season</h4>
+                            <p class="price">$85/night</p>
+                            <small>April - November</small>
+                        </div>
+                    </div>
+                    <div class="special-offers">
+                        <h4>Special Promotions</h4>
+                        <p><i class="fas fa-tag"></i> Stay 7+ nights: 15% discount</p>
+                        <p><i class="fas fa-tag"></i> Book 30 days ahead: 10% off</p>
+                    </div>
+                    <button class="btn-primary" onclick="openBookingModal()">Check Availability</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Reviews Section -->
+    <section id="reviews" class="reviews-section">
+        <div class="container">
+            <h2 class="section-title">Guest Reviews</h2>
+            <div class="overall-rating">
+                <div class="rating-stars">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                </div>
+                <span class="rating-text">4.9/5 (24 reviews)</span>
+            </div>
+            
+            <div class="reviews-grid">
+                <div class="review-card">
+                    <div class="review-header">
+                        <div class="reviewer-info">
+                            <h4>M.R.</h4>
+                            <p>February 2024</p>
+                        </div>
+                        <div class="review-rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                    </div>
+                    <p class="review-text">"Absolutely spectacular! The ocean view from the terrace is breathtaking. The house is beautifully maintained and has everything you need for a perfect vacation. Highly recommended!"</p>
+                </div>
+                
+                <div class="review-card">
+                    <div class="review-header">
+                        <div class="reviewer-info">
+                            <h4>J.L.</h4>
+                            <p>January 2024</p>
+                        </div>
+                        <div class="review-rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                    </div>
+                    <p class="review-text">"Perfect for families! Our kids loved the direct beach access, and we appreciated the safe, comfortable environment. The WiFi was excellent for my remote work sessions."</p>
+                </div>
+                
+                <div class="review-card">
+                    <div class="review-header">
+                        <div class="reviewer-info">
+                            <h4>A.S.</h4>
+                            <p>December 2023</p>
+                        </div>
+                        <div class="review-rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="far fa-star"></i>
+                        </div>
+                    </div>
+                    <p class="review-text">"Beautiful location surrounded by hills and close to the ocean. The kitchen is well-equipped, and the air conditioning works perfectly. Would definitely stay again!"</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Location Section -->
+    <section id="location" class="location-section">
+        <div class="container">
+            <h2 class="section-title">Location & Access</h2>
+            <div class="location-content">
+                <div class="location-info">
+                    <h3>Distances & Access</h3>
+                    <div class="distance-list">
+                        <div class="distance-item">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>City Center: 15 minutes</span>
+                        </div>
+                        <div class="distance-item">
+                            <i class="fas fa-walking"></i>
+                            <span>Beach: 2 minutes walking</span>
+                        </div>
+                        <div class="distance-item">
+                            <i class="fas fa-plane"></i>
+                            <span>Airport: 45 minutes</span>
+                        </div>
+                        <div class="distance-item">
+                            <i class="fas fa-utensils"></i>
+                            <span>Restaurants: 5 minutes</span>
+                        </div>
+                        <div class="distance-item">
+                            <i class="fas fa-shopping-cart"></i>
+                            <span>Supermarket: 10 minutes</span>
+                        </div>
+                        <div class="distance-item">
+                            <i class="fas fa-tree"></i>
+                            <span>Hiking trails: On site</span>
+                        </div>
+                    </div>
+                    
+                    <h3>Area Highlights</h3>
+                    <ul class="highlights-list">
+                        <li>Ecological tourism opportunities</li>
+                        <li>Historical interest sites nearby</li>
+                        <li>Multiple pristine beaches</li>
+                        <li>Local fishing village</li>
+                        <li>Mountain hiking trails</li>
+                        <li>Bird watching spots</li>
+                    </ul>
+                </div>
+                
+                <div class="map-container">
+                    <div id="map"></div>
+                    <p class="map-note">
+                        <i class="fas fa-info-circle"></i>
+                        Approximate location shown for privacy and security
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact-section">
+        <div class="container">
+            <h2 class="section-title">Contact & Booking</h2>
+            
+            <div class="contact-content">
+                <div class="contact-info">
+                    <h3>Get in Touch</h3>
+                    <p>Ready to book your perfect escape? Contact us through any of these convenient methods:</p>
+                    
+                    <div class="social-buttons">
+                        <a href="https://wa.me/1234567890" class="social-btn whatsapp" target="_blank">
+                            <i class="fab fa-whatsapp"></i>
+                            <span>WhatsApp</span>
+                        </a>
+                        <a href="https://t.me/alejandraguesthouse" class="social-btn telegram" target="_blank">
+                            <i class="fab fa-telegram"></i>
+                            <span>Telegram</span>
+                        </a>
+                        <a href="https://facebook.com/alejandraguesthouse" class="social-btn facebook" target="_blank">
+                            <i class="fab fa-facebook"></i>
+                            <span>Facebook</span>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="booking-form">
+                    <h3>Booking Request</h3>
+                    <form id="bookingForm">
+                        <div class="form-group">
+                            <label for="name">Full Name</label>
+                            <input type="text" id="name" name="name" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="checkin">Check-in Date</label>
+                                <input type="date" id="checkin" name="checkin" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="checkout">Check-out Date</label>
+                                <input type="date" id="checkout" name="checkout" required>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="guests">Number of Guests</label>
+                            <select id="guests" name="guests" required>
+                                <option value="">Select guests</option>
+                                <option value="1">1 Guest</option>
+                                <option value="2">2 Guests</option>
+                                <option value="3">3 Guests</option>
+                                <option value="4">4 Guests</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="message">Special Requests (Optional)</label>
+                            <textarea id="message" name="message" rows="4"></textarea>
+                        </div>
+                        
+                        <button type="submit" class="btn-primary">Send Booking Request</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3><i class="fas fa-umbrella-beach"></i> Alejandra Beach House</h3>
+                    <p>Your perfect escape by the ocean. Experience nature, comfort, and good vibes in our beautiful beach house surrounded by hills.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#gallery">Gallery</a></li>
+                        <li><a href="#amenities">Amenities</a></li>
+                        <li><a href="#reviews">Reviews</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Contact Info</h4>
+                    <p><i class="fas fa-envelope"></i> info@alejandraguesthouse.com</p>
+                    <p><i class="fas fa-phone"></i> +1 (555) 123-4567</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-whatsapp"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Alejandra Beach House. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Booking Modal -->
+    <div id="bookingModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h3>Check Availability</h3>
+            <div class="calendar-container">
+                <!-- Calendar will be implemented here -->
+                <p>Calendar integration coming soon. Please use the contact form below for now.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Gallery Modal -->
+    <div id="galleryModal" class="modal">
+        <div class="modal-content gallery-modal-content">
+            <span class="close">&times;</span>
+            <img id="modalImage" src="" alt="">
+            <div class="modal-nav">
+                <button id="prevBtn"><i class="fas fa-chevron-left"></i></button>
+                <button id="nextBtn"><i class="fas fa-chevron-right"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="assets/js/script.js"></script>
+</body>
+</html>
