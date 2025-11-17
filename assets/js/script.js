@@ -10,6 +10,7 @@ document.addEventListener('DOMContentLoaded', function() {
     initializeMap();
     initializeModals();
     initializeBookingForm();
+    initializeReviewForm();
     initializeScrollAnimations();
     setMinDate();
 });
@@ -53,20 +54,20 @@ function initializeNavigation() {
 function initializeGallery() {
     // Sample gallery data - replace with your actual images
     const galleryData = [
-        { category: 'exterior', src: 'assets/images/gallery/exterior-1.jpg', alt: 'House Exterior View' },
-        { category: 'exterior', src: 'assets/images/gallery/exterior-2.jpg', alt: 'Garden Area' },
-        { category: 'exterior', src: 'assets/images/gallery/exterior-3.jpg', alt: 'House Surroundings' },
-        { category: 'rooms', src: 'assets/images/gallery/bedroom-1.jpg', alt: 'Master Bedroom' },
-        { category: 'rooms', src: 'assets/images/gallery/bedroom-2.jpg', alt: 'Second Bedroom' },
-        { category: 'kitchen', src: 'assets/images/gallery/kitchen-1.jpg', alt: 'Modern Kitchen' },
-        { category: 'kitchen', src: 'assets/images/gallery/kitchen-2.jpg', alt: 'Kitchen Dining Area' },
-        { category: 'living', src: 'assets/images/gallery/living-1.jpg', alt: 'Living Room' },
-        { category: 'living', src: 'assets/images/gallery/living-2.jpg', alt: 'Common Area' },
-        { category: 'terrace', src: 'assets/images/gallery/terrace-1.jpg', alt: 'Ocean View Terrace' },
-        { category: 'terrace', src: 'assets/images/gallery/pool-1.jpg', alt: 'Pool Area' },
-        { category: 'beach', src: 'assets/images/gallery/beach-1.jpg', alt: 'Beach Access' },
-        { category: 'beach', src: 'assets/images/gallery/beach-2.jpg', alt: 'Nearby Beach' },
-        { category: 'garage', src: 'assets/images/gallery/parking-1.jpg', alt: 'Parking Area' }
+        { category: 'exterior', src: 'assets/images/gallery/photo_2025-11-14_18-26-30.jpg', alt: 'House Exterior View' },
+        { category: 'exterior', src: 'assets/images/gallery/photo_2025-11-14_18-26-30.jpg', alt: 'Garden Area' },
+        { category: 'exterior', src: 'assets/images/gallery/photo_2025-11-14_18-26-30.jpg', alt: 'House Surroundings' },
+        { category: 'rooms', src: 'assets/images/gallery/photo_2025-11-14_18-26-53.jpg', alt: 'Master Bedroom' },
+        { category: 'rooms', src: 'assets/images/gallery/photo_2025-11-14_18-26-53.jpg', alt: 'Second Bedroom' },
+        { category: 'kitchen', src: 'assets/images/gallery/photo_2025-11-14_18-26-57.jpg', alt: 'Modern Kitchen' },
+        { category: 'kitchen', src: 'assets/images/gallery/photo_2025-11-14_18-26-57.jpg', alt: 'Kitchen Dining Area' },
+        { category: 'living', src: 'assets/images/gallery/photo_2025-11-14_18-26-57.jpg', alt: 'Living Room' },
+        { category: 'living', src: 'assets/images/gallery/photo_2025-11-14_18-26-57.jpg', alt: 'Common Area' },
+        { category: 'terrace', src: 'assets/images/gallery/photo_2025-11-14_18-26-57.jpg', alt: 'Ocean View Terrace' },
+        { category: 'terrace', src: 'assets/images/gallery/photo_2025-11-14_18-26-57.jpg', alt: 'Pool Area' },
+        { category: 'beach', src: 'assets/images/gallery/photo_2025-11-14_18-27-00.jpg', alt: 'Beach Access' },
+        { category: 'beach', src: 'assets/images/gallery/photo_2025-11-14_18-27-00.jpg', alt: 'Nearby Beach' },
+        { category: 'garage', src: 'assets/images/gallery/photo_2025-11-14_18-27-03.jpg', alt: 'Parking Area' }
     ];
 
     galleryImages = galleryData;
@@ -138,8 +139,8 @@ function initializeMap() {
     if (!mapContainer) return;
 
     // Approximate coordinates (replace with your approximate location)
-    const lat = 18.4861; // Example coordinates for Dominican Republic coast
-    const lng = -69.9312;
+    const lat = 21.11263938481885; // Updated coordinates for the beach house location
+    const lng = -75.84511401516896;
 
     try {
         map = L.map('map', {
@@ -323,7 +324,7 @@ function handleBookingSubmission() {
 
     // Create WhatsApp message
     const whatsappMessage = createWhatsAppMessage(bookingData);
-    const whatsappUrl = `https://wa.me/1234567890?text=${encodeURIComponent(whatsappMessage)}`;
+    const whatsappUrl = `https://wa.me/+5352454116?text=${encodeURIComponent(whatsappMessage)}`;
     
     // Show success message
     showNotification('Redirecting to WhatsApp to send your booking request...', 'success');
@@ -337,7 +338,7 @@ function handleBookingSubmission() {
 }
 
 function createWhatsAppMessage(data) {
-    return `🏖️ *BOOKING REQUEST - Alejandra Beach House*
+    return `🏖️ *BOOKING REQUEST - Alejandra Guest House*
 
 👤 *Name:* ${data.name}
 📧 *Email:* ${data.email}
@@ -349,6 +350,179 @@ function createWhatsAppMessage(data) {
 ${data.message}
 
 Thank you for choosing Alejandra Beach House! We'll get back to you soon with availability and pricing details.`;
+}
+
+// Review Form Functions
+function initializeReviewForm() {
+    const reviewForm = document.getElementById('reviewForm');
+    const reviewText = document.getElementById('reviewText');
+    const charCount = document.getElementById('charCount');
+    const reviewDate = document.getElementById('reviewDate');
+    
+    if (!reviewForm || !reviewText || !charCount) return;
+
+    // Set current date as default
+    if (reviewDate) {
+        const today = new Date();
+        const formattedDate = today.toISOString().split('T')[0];
+        reviewDate.value = formattedDate;
+    }
+
+    // Character counter
+    reviewText.addEventListener('input', function() {
+        const currentLength = this.value.length;
+        charCount.textContent = currentLength;
+        
+        // Add warning class if approaching limit
+        const charCountElement = charCount.parentElement;
+        if (currentLength > 450) {
+            charCountElement.classList.add('warning');
+        } else {
+            charCountElement.classList.remove('warning');
+        }
+    });
+
+    // Form submission
+    reviewForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        handleReviewSubmission();
+    });
+
+    // Star rating interaction
+    setupStarRating();
+}
+
+function setupStarRating() {
+    const starLabels = document.querySelectorAll('.star-label');
+    const starInputs = document.querySelectorAll('.star-rating input');
+    
+    starLabels.forEach((label, index) => {
+        label.addEventListener('mouseenter', function() {
+            highlightStars(index + 1);
+        });
+        
+        label.addEventListener('click', function() {
+            const ratingValue = this.previousElementSibling.value;
+            selectStars(parseInt(ratingValue));
+        });
+    });
+    
+    // Reset highlighting on mouse leave
+    document.querySelector('.star-rating').addEventListener('mouseleave', function() {
+        const checkedInput = document.querySelector('.star-rating input:checked');
+        if (checkedInput) {
+            selectStars(checkedInput.value);
+        } else {
+            resetStars();
+        }
+    });
+}
+
+function highlightStars(rating) {
+    const starLabels = document.querySelectorAll('.star-label');
+    starLabels.forEach((label, index) => {
+        if (index < rating) {
+            label.style.color = '#F18F01';
+        } else {
+            label.style.color = '#ddd';
+        }
+    });
+}
+
+function selectStars(rating) {
+    const starLabels = document.querySelectorAll('.star-label');
+    starLabels.forEach((label, index) => {
+        if (index < rating) {
+            label.style.color = '#F18F01';
+        } else {
+            label.style.color = '#ddd';
+        }
+    });
+}
+
+function resetStars() {
+    const starLabels = document.querySelectorAll('.star-label');
+    starLabels.forEach(label => {
+        label.style.color = '#ddd';
+    });
+}
+
+function handleReviewSubmission() {
+    const formData = new FormData(document.getElementById('reviewForm'));
+    const reviewData = {
+        name: formData.get('reviewerName'),
+        date: formData.get('reviewDate'),
+        rating: formData.get('rating'),
+        text: formData.get('reviewText')
+    };
+
+    // Validate required fields
+    if (!reviewData.name || !reviewData.date || !reviewData.rating || !reviewData.text) {
+        showNotification('Please fill in all required fields.', 'error');
+        return;
+    }
+
+    // Validate text length
+    if (reviewData.text.length > 500) {
+        showNotification('Review text must be 500 characters or less.', 'error');
+        return;
+    }
+
+    // Add review to the page
+    addReviewToPage(reviewData);
+    
+    // Show success message
+    showNotification('Thank you for your review! It has been added successfully.', 'success');
+    
+    // Reset form
+    document.getElementById('reviewForm').reset();
+    document.getElementById('charCount').textContent = '0';
+    resetStars();
+}
+
+function addReviewToPage(reviewData) {
+    const reviewsGrid = document.querySelector('.reviews-grid');
+    const newReview = document.createElement('div');
+    newReview.className = 'review-card';
+    
+    // Get initials from name
+    const initials = reviewData.name.split(' ').map(word => word.charAt(0)).join('.') + '.';
+    
+    // Format date
+    const date = new Date(reviewData.date);
+    const formattedDate = date.toLocaleDateString('en-US', { year: 'numeric', month: 'long' });
+    
+    // Create stars HTML
+    const starsHTML = Array.from({length: 5}, (_, i) => {
+        const starClass = i < reviewData.rating ? 'fas fa-star' : 'far fa-star';
+        return `<i class="${starClass}"></i>`;
+    }).join('');
+    
+    newReview.innerHTML = `
+        <div class="review-header">
+            <div class="reviewer-info">
+                <h4>${initials}</h4>
+                <p>${formattedDate}</p>
+            </div>
+            <div class="review-rating">
+                ${starsHTML}
+            </div>
+        </div>
+        <p class="review-text">"${reviewData.text}"</p>
+    `;
+    
+    // Add animation
+    newReview.style.opacity = '0';
+    newReview.style.transform = 'translateY(20px)';
+    
+    reviewsGrid.appendChild(newReview);
+    
+    // Animate in
+    setTimeout(() => {
+        newReview.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+        newReview.style.opacity = '1';
+        newReview.style.transform = 'translateY(0)';
+    }, 100);
 }
 
 // Utility Functions
