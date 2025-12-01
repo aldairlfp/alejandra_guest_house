@@ -1,6 +1,165 @@
 // Global Variables
 let currentImageIndex = 0;
 let galleryImages = [];
+let currentLanguage = "en";
+
+// Translations
+const translations = {
+  en: {
+    navHome: "Home",
+    navGallery: "Gallery",
+    navDetails: "Details",
+    navReviews: "Reviews",
+    navLocation: "Location",
+    navContact: "Contact",
+    heroTitle: "Costal Hillside House",
+    heroSubtitle: "Your Beach Retreat",
+    heroDescription:
+      "Surrounded by hills • Nature, comfort and good vibes • A few minutes from the sea",
+    feature1: "Sunrises facing the sea from your private terrace",
+    feature2:
+      "Ideal for a couple seeking romance, and families wanting comfort",
+    feature3: "Access to the beach without long walks",
+    feature4: "Close to restaurants and local activities",
+    feature5: "Solar backup power",
+    feature6: "Available for long-term stay",
+    btnBook: "Book Now",
+    btnGallery: "View Gallery",
+    galleryTitle: "Photo Gallery",
+    gallerySubtitle: "Discover the beauty of Alejandra Guest House",
+    tabAll: "All Photos",
+    tabExterior: "Exterior & Gardens",
+    tabRooms: "Bedrooms",
+    tabKitchen: "Kitchen",
+    tabLiving: "Living Areas",
+    tabTerrace: "Terrace & Pool",
+    tabBeach: "Beach & Surroundings",
+    tabParking: "Parking",
+    detailsTitle: "House Details & Amenities",
+    capacityTitle: "Capacity & Rooms",
+    capacity: "Capacity: 4 people",
+    bedrooms: "Bedrooms: 2",
+    bathrooms: "Bathrooms: 3",
+    amenitiesTitle: "Amenities",
+    furnished: "Fully furnished",
+    kitchen: "Equipped kitchen",
+    ac: "Air conditioning",
+    parking: "Parking available",
+    gardens: "Beautiful gardens",
+    noPets: "Pets not allowed",
+    reviewsTitle: "Guest Reviews",
+    locationTitle: "Location & Access",
+    distancesTitle: "Distances & Access",
+    cityCenter: "City Center: 15 minutes",
+    beach: "Beach: 2 minutes walking",
+    airport: "Airport: 45 minutes",
+    restaurants: "Restaurants: 5 minutes",
+    supermarket: "Supermarket: 10 minutes",
+    hiking: "Hiking trails: On site",
+    highlightsTitle: "Area Highlights",
+    highlight1: "Ecological tourism opportunities",
+    highlight2: "Historical interest sites nearby",
+    highlight3: "Multiple pristine beaches",
+    highlight4: "Local fishing village",
+    highlight5: "Mountain hiking trails",
+    highlight6: "Bird watching spots",
+    mapNote: "Approximate location shown for privacy and security",
+    contactTitle: "Contact & Booking",
+    getInTouch: "Get in Touch",
+    contactDesc:
+      "Ready to book Your Beach Retreat? Contact us through any of these convenient methods:",
+    bookingTitle: "Booking Request",
+    labelName: "Full Name",
+    labelEmail: "Email",
+    labelCheckin: "Check-in Date",
+    labelCheckout: "Check-out Date",
+    labelGuests: "Number of Guests",
+    selectGuests: "Select guests",
+    guest1: "1 Guest",
+    guest2: "2 Guests",
+    guest3: "3 Guests",
+    guest4: "4 Guests",
+    labelMessage: "Special Requests (Optional)",
+    btnSubmit: "Send Booking Request",
+  },
+  es: {
+    navHome: "Inicio",
+    navGallery: "Galería",
+    navDetails: "Detalles",
+    navReviews: "Reseñas",
+    navLocation: "Ubicación",
+    navContact: "Contacto",
+    heroTitle: "Casa en Colina Costera",
+    heroSubtitle: "Tu Refugio en la Playa",
+    heroDescription:
+      "Rodeada de colinas • Naturaleza, comodidad y buenas vibras • A minutos del mar",
+    feature1: "Amaneceres frente al mar desde tu terraza privada",
+    feature2:
+      "Ideal para parejas en busca de romance y familias que desean confort",
+    feature3: "Acceso a la playa sin largas caminatas",
+    feature4: "Cerca de restaurantes y actividades locales",
+    feature5: "Respaldo de energía solar",
+    feature6: "Disponible para estancias prolongadas",
+    btnBook: "Reservar Ahora",
+    btnGallery: "Ver Galería",
+    galleryTitle: "Galería de Fotos",
+    gallerySubtitle: "Descubre la belleza de Alejandra Guest House",
+    tabAll: "Todas las Fotos",
+    tabExterior: "Exterior y Jardines",
+    tabRooms: "Habitaciones",
+    tabKitchen: "Cocina",
+    tabLiving: "Áreas Comunes",
+    tabTerrace: "Terraza y Piscina",
+    tabBeach: "Playa y Alrededores",
+    tabParking: "Estacionamiento",
+    detailsTitle: "Detalles de la Casa y Comodidades",
+    capacityTitle: "Capacidad y Habitaciones",
+    capacity: "Capacidad: 4 personas",
+    bedrooms: "Habitaciones: 2",
+    bathrooms: "Baños: 3",
+    amenitiesTitle: "Comodidades",
+    furnished: "Completamente amueblada",
+    kitchen: "Cocina equipada",
+    ac: "Aire acondicionado",
+    parking: "Estacionamiento disponible",
+    gardens: "Hermosos jardines",
+    noPets: "No se permiten mascotas",
+    reviewsTitle: "Reseñas de Huéspedes",
+    locationTitle: "Ubicación y Acceso",
+    distancesTitle: "Distancias y Acceso",
+    cityCenter: "Centro de la Ciudad: 15 minutos",
+    beach: "Playa: 2 minutos caminando",
+    airport: "Aeropuerto: 45 minutos",
+    restaurants: "Restaurantes: 5 minutos",
+    supermarket: "Supermercado: 10 minutos",
+    hiking: "Senderos: En el lugar",
+    highlightsTitle: "Destacados del Área",
+    highlight1: "Oportunidades de turismo ecológico",
+    highlight2: "Sitios históricos cercanos",
+    highlight3: "Múltiples playas vírgenes",
+    highlight4: "Pueblo pesquero local",
+    highlight5: "Senderos de montaña",
+    highlight6: "Lugares para observar aves",
+    mapNote: "Ubicación aproximada mostrada por privacidad y seguridad",
+    contactTitle: "Contacto y Reservas",
+    getInTouch: "Ponte en Contacto",
+    contactDesc:
+      "¿Listo para reservar tu Refugio en la Playa? Contáctanos a través de estos métodos:",
+    bookingTitle: "Solicitud de Reserva",
+    labelName: "Nombre Completo",
+    labelEmail: "Correo Electrónico",
+    labelCheckin: "Fecha de Entrada",
+    labelCheckout: "Fecha de Salida",
+    labelGuests: "Número de Huéspedes",
+    selectGuests: "Seleccionar huéspedes",
+    guest1: "1 Huésped",
+    guest2: "2 Huéspedes",
+    guest3: "3 Huéspedes",
+    guest4: "4 Huéspedes",
+    labelMessage: "Solicitudes Especiales (Opcional)",
+    btnSubmit: "Enviar Solicitud de Reserva",
+  },
+};
 
 // DOM Content Loaded
 document.addEventListener("DOMContentLoaded", function () {
@@ -11,6 +170,7 @@ document.addEventListener("DOMContentLoaded", function () {
   initializeBookingForm();
   initializeScrollAnimations();
   setMinDate();
+  initializeLanguageToggle();
 });
 
 // Navigation Functions
@@ -493,6 +653,149 @@ document.addEventListener(
   },
   true
 );
+
+// Language Toggle Functions
+function initializeLanguageToggle() {
+  const languageBtn = document.getElementById("languageToggle");
+  if (languageBtn) {
+    languageBtn.addEventListener("click", toggleLanguage);
+  }
+}
+
+function toggleLanguage() {
+  currentLanguage = currentLanguage === "en" ? "es" : "en";
+  updateLanguage();
+}
+
+function updateLanguage() {
+  const t = translations[currentLanguage];
+
+  // Update language button
+  document.querySelector(".lang-text").textContent =
+    currentLanguage === "en" ? "ES" : "EN";
+
+  // Navigation
+  document.querySelectorAll(".nav-link")[0].textContent = t.navHome;
+  document.querySelectorAll(".nav-link")[1].textContent = t.navGallery;
+  document.querySelectorAll(".nav-link")[2].textContent = t.navDetails;
+  document.querySelectorAll(".nav-link")[3].textContent = t.navReviews;
+  document.querySelectorAll(".nav-link")[4].textContent = t.navLocation;
+  document.querySelectorAll(".nav-link")[5].textContent = t.navContact;
+
+  // Hero Section
+  document.querySelector(".hero-title").textContent = t.heroTitle;
+  document.querySelector(".hero-subtitle").textContent = t.heroSubtitle;
+  document.querySelector(".hero-description").textContent = t.heroDescription;
+
+  // Hero Features
+  const features = document.querySelectorAll(".feature-item span");
+  features[0].textContent = t.feature1;
+  features[1].textContent = t.feature2;
+  features[2].textContent = t.feature3;
+  features[3].textContent = t.feature4;
+  features[4].textContent = t.feature5;
+  features[5].textContent = t.feature6;
+
+  // Hero Buttons
+  document.querySelectorAll(".hero-buttons button")[0].textContent = t.btnBook;
+  document.querySelectorAll(".hero-buttons button")[1].textContent =
+    t.btnGallery;
+
+  // Gallery Section
+  document.querySelectorAll(".section-title")[0].textContent = t.galleryTitle;
+  document.querySelectorAll(".section-subtitle")[0].textContent =
+    t.gallerySubtitle;
+
+  // Gallery Tabs
+  const tabs = document.querySelectorAll(".tab-button");
+  tabs[0].textContent = t.tabAll;
+  tabs[1].textContent = t.tabExterior;
+  tabs[2].textContent = t.tabRooms;
+  tabs[3].textContent = t.tabKitchen;
+  tabs[4].textContent = t.tabLiving;
+  tabs[5].textContent = t.tabTerrace;
+  tabs[6].textContent = t.tabBeach;
+  tabs[7].textContent = t.tabParking;
+
+  // Details Section
+  document.querySelectorAll(".section-title")[1].textContent = t.detailsTitle;
+  document.querySelectorAll(".detail-card h3")[0].textContent = t.capacityTitle;
+  document.querySelectorAll(".detail-card h3")[1].textContent =
+    t.amenitiesTitle;
+
+  // Capacity & Rooms
+  const detailItems = document.querySelectorAll(".detail-item span");
+  detailItems[0].textContent = t.capacity;
+  detailItems[1].textContent = t.bedrooms;
+  detailItems[2].textContent = t.bathrooms;
+  detailItems[3].textContent = t.furnished;
+  detailItems[4].textContent = t.kitchen;
+  detailItems[5].textContent = t.ac;
+  detailItems[6].textContent = t.parking;
+  detailItems[7].textContent = t.gardens;
+  detailItems[8].textContent = t.noPets;
+
+  // Reviews Section
+  document.querySelectorAll(".section-title")[2].textContent = t.reviewsTitle;
+
+  // Location Section
+  document.querySelectorAll(".section-title")[3].textContent = t.locationTitle;
+  document.querySelector(".location-info h3:nth-of-type(1)").textContent =
+    t.distancesTitle;
+
+  // Distances
+  const distances = document.querySelectorAll(".distance-item span");
+  distances[0].textContent = t.cityCenter;
+  distances[1].textContent = t.beach;
+  distances[2].textContent = t.airport;
+  distances[3].textContent = t.restaurants;
+  distances[4].textContent = t.supermarket;
+  distances[5].textContent = t.hiking;
+
+  // Highlights
+  document.querySelector(".location-info h3:nth-of-type(2)").textContent =
+    t.highlightsTitle;
+  const highlights = document.querySelectorAll(".highlights-list li");
+  highlights[0].textContent = t.highlight1;
+  highlights[1].textContent = t.highlight2;
+  highlights[2].textContent = t.highlight3;
+  highlights[3].textContent = t.highlight4;
+  highlights[4].textContent = t.highlight5;
+  highlights[5].textContent = t.highlight6;
+
+  // Map Note
+  const mapNote = document.querySelector(".map-note");
+  mapNote.innerHTML = `<i class="fas fa-info-circle"></i> ${t.mapNote}`;
+
+  // Contact Section
+  document.querySelectorAll(".section-title")[4].textContent = t.contactTitle;
+  document.querySelector(".contact-info h3").textContent = t.getInTouch;
+  document.querySelector(".contact-info p").textContent = t.contactDesc;
+
+  // Booking Form
+  document.querySelector(".booking-form h3").textContent = t.bookingTitle;
+  document.querySelectorAll(".form-group label")[0].textContent = t.labelName;
+  document.querySelectorAll(".form-group label")[1].textContent = t.labelEmail;
+  document.querySelectorAll(".form-group label")[2].textContent =
+    t.labelCheckin;
+  document.querySelectorAll(".form-group label")[3].textContent =
+    t.labelCheckout;
+  document.querySelectorAll(".form-group label")[4].textContent = t.labelGuests;
+  document.querySelectorAll(".form-group label")[5].textContent =
+    t.labelMessage;
+
+  // Guest Options
+  const guestOptions = document.querySelectorAll("#guests option");
+  guestOptions[0].textContent = t.selectGuests;
+  guestOptions[1].textContent = t.guest1;
+  guestOptions[2].textContent = t.guest2;
+  guestOptions[3].textContent = t.guest3;
+  guestOptions[4].textContent = t.guest4;
+
+  // Submit Button
+  document.querySelector('.booking-form button[type="submit"]').textContent =
+    t.btnSubmit;
+}
 
 // Export functions for global access
 window.scrollToSection = scrollToSection;
