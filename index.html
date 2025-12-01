@@ -27,11 +27,7 @@
       rel="stylesheet"
     />
 
-    <!-- Leaflet CSS for Maps -->
-    <link
-      rel="stylesheet"
-      href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
-    />
+
   </head>
   <body>
     <!-- Navigation -->
@@ -96,7 +92,7 @@
             <span>Solar backup power</span>
           </div>
           <div class="feature-item">
-            <i class="fas fa-bolt"></i>
+            <i class="fas fa-calendar-alt"></i>
             <span>Available for long-term stay</span>
           </div>
         </div>
@@ -262,9 +258,9 @@
               <div class="review-rating">
                 <i class="fas fa-star"></i>
                 <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
+                <i class="far fa-star"></i>
+                <i class="far fa-star"></i>
+                <i class="far fa-star"></i>
               </div>
             </div>
             <p class="review-text">
@@ -288,6 +284,7 @@
                 <i class="far fa-star"></i>
               </div>
             </div>
+            <p>This is a test review</p>
             <p class="review-text"></p>
           </div>
         </div>
@@ -340,7 +337,7 @@
           </div>
 
           <div class="map-container">
-            <div id="map"></div>
+            <img id="map" src="assets/images/map.jpg" alt="Location Map" />
             <p class="map-note">
               <i class="fas fa-info-circle"></i>
               Approximate location shown for privacy and security
@@ -515,7 +512,6 @@
     </div>
 
     <!-- JavaScript -->
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <script src="assets/js/script.js"></script>
   </body>
 </html>

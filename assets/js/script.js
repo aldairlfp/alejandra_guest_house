@@ -1,7 +1,6 @@
 // Global Variables
 let currentImageIndex = 0;
 let galleryImages = [];
-let map;
 
 // DOM Content Loaded
 document.addEventListener("DOMContentLoaded", function () {
@@ -169,44 +168,9 @@ function filterGallery(category) {
 
 // Map Functions
 function initializeMap() {
-  // Initialize map with approximate location (for privacy)
-  const mapContainer = document.getElementById("map");
-  if (!mapContainer) return;
-
-  // Approximate coordinates (replace with your approximate location)
-  const lat = 21.11263938481885; // Updated coordinates for the beach house location
-  const lng = -75.84511401516896;
-
-  try {
-    map = L.map("map", {
-      center: [lat, lng],
-      zoom: 12,
-      zoomControl: true,
-      scrollWheelZoom: false,
-    });
-
-    L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-      attribution: "© OpenStreetMap contributors",
-    }).addTo(map);
-
-    // Add marker for approximate location
-    const marker = L.marker([lat, lng]).addTo(map);
-    marker.bindPopup(
-      "<strong>Alejandra Beach House</strong><br>Approximate location for privacy"
-    );
-
-    // Add circle to show general area
-    L.circle([lat, lng], {
-      color: "#2c5aa0",
-      fillColor: "#2c5aa0",
-      fillOpacity: 0.2,
-      radius: 1000,
-    }).addTo(map);
-  } catch (error) {
-    console.error("Error initializing map:", error);
-    mapContainer.innerHTML =
-      '<p style="text-align: center; padding: 2rem; color: #666;">Map loading...</p>';
-  }
+  // Map is now a static image, no initialization needed
+  // This function is kept for compatibility but doesn't do anything
+  return;
 }
 
 // Modal Functions
