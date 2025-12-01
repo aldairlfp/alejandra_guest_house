@@ -56,6 +56,94 @@ alejandra_guest_house/
 └── .gitignore             # Git ignore file
 ```
 
+## Pre-Production Checklist
+
+Before deploying your website to production, update the following items:
+
+### 📸 Images to Replace
+
+**Hero Section:**
+- [ ] Add video files: `assets/videos/hero-background.mp4` and `assets/videos/hero-background.webm`
+- [ ] Or replace video with static background image in CSS
+
+**Gallery Images:**
+Update all gallery images in `assets/js/script.js` (lines ~50-90):
+- [ ] `assets/images/photo_2025-11-14_18-26-30.jpg` (exterior)
+- [ ] `assets/images/1701eb5c-64d8-4f22-bf79-97c115300413.jpg` (exterior)
+- [ ] `assets/images/118349.jpg` (exterior)
+- [ ] `assets/images/294213(1).jpg` (bedroom)
+- [ ] `assets/images/802039.jpg` (bedroom)
+- [ ] `assets/images/294213.jpg` (bedroom)
+- [ ] `assets/images/907796.png` (kitchen)
+- [ ] `assets/images/1377511.jpg` (kitchen)
+- [ ] `assets/images/76995.jpg` (living room)
+
+**Location Map:**
+- [ ] Replace `assets/images/map.jpg` with actual location map image
+
+**Favicon:**
+- [ ] Add/replace `assets/images/favicon.ico`
+
+### 🔗 Social Media & Contact Links
+
+**In `index.html` (Contact Section, lines ~360-390):**
+- [ ] WhatsApp: Update `href="https://wa.me/+5352454116"` with your number
+- [ ] Telegram: Update `href="https://t.me/bertalm73"` with your username
+- [ ] Facebook: Update `href="https://facebook.com/alejandraguesthouse"` with your page URL
+- [ ] Instagram: Update `href="https://instagram.com/alejandraguesthouse"` with your profile URL
+
+**In `index.html` (Footer Section, lines ~440-460):**
+- [ ] Email: Update `info@alejandraguesthouse.com` with your actual email
+- [ ] Phone: Update `+5352454116` with your phone number
+- [ ] Social links: Update Facebook, Instagram, WhatsApp, and Telegram links
+
+### 📱 WhatsApp Integration
+
+**In `assets/js/script.js` (line ~320):**
+```javascript
+// Update WhatsApp number for booking form submissions
+const whatsappUrl = `https://wa.me/+5352454116?text=${encodeURIComponent(whatsappMessage)}`;
+```
+Change `+5352454116` to your WhatsApp number (include country code).
+
+### 🗺️ Location Coordinates
+
+**In `assets/js/script.js` (already updated with your coordinates):**
+```javascript
+// Lines are already set to:
+const lat = 21.11263938481885;
+const lng = -75.84511401516896;
+```
+Note: The map is now a static image (`assets/images/map.jpg`), so you only need to replace the image file.
+
+### 📝 Content Updates
+
+**In `index.html`:**
+- [ ] Update property name/title if different from "Alejandra Guest House"
+- [ ] Review and update hero description (line ~70)
+- [ ] Update capacity, bedrooms, bathrooms (lines ~170-185)
+- [ ] Update amenities list (lines ~190-210)
+- [ ] Update distance information (lines ~310-330)
+- [ ] Update area highlights (lines ~335-345)
+- [ ] Review guest reviews and update as needed (lines ~240-290)
+
+### 🎨 Branding
+
+- [ ] Update page title and meta description (lines ~5-10)
+- [ ] Review color scheme in CSS if needed
+- [ ] Update footer copyright year if needed (currently 2024)
+
+### ✅ Final Testing
+
+Before going live:
+- [ ] Test all social media links open correctly
+- [ ] Test booking form submission via WhatsApp
+- [ ] Verify all images load properly
+- [ ] Test on mobile devices
+- [ ] Check all navigation links work
+- [ ] Verify gallery modal and navigation works
+- [ ] Test form validation
+
 ## Setup Instructions
 
 ### 1. Add Your Images
