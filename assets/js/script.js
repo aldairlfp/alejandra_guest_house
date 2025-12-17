@@ -214,27 +214,42 @@ function initializeGallery() {
   const galleryData = [
     {
       category: "exterior",
-      src: "assets/images/photo_2025-11-14_18-26-30.jpg",
+      src: "assets/images/exterior1.jpg",
       alt: "House Exterior View",
     },
     {
       category: "exterior",
-      src: "assets/images/1701eb5c-64d8-4f22-bf79-97c115300413.jpg",
+      src: "assets/images/exterior2.jpg",
       alt: "Garden Area",
     },
     {
       category: "exterior",
-      src: "assets/images/118349.jpg",
+      src: "assets/images/exterior3.jpg",
+      alt: "House Surroundings",
+    },
+    {
+      category: "exterior",
+      src: "assets/images/exterior4.jpg",
+      alt: "House Surroundings",
+    },
+    {
+      category: "exterior",
+      src: "assets/images/exterior5.jpg",
+      alt: "House Surroundings",
+    },
+    {
+      category: "exterior",
+      src: "assets/images/exterior6.jpg",
       alt: "House Surroundings",
     },
     {
       category: "rooms",
-      src: "assets/images/294213(1).jpg",
+      src: "assets/images/bedroom1.jpg",
       alt: "Master Bedroom",
     },
     {
       category: "rooms",
-      src: "assets/images/802039.jpg",
+      src: "assets/images/bedroom2.jpg",
       alt: "Second Bedroom",
     },
     {
