@@ -210,72 +210,42 @@ function initializeNavigation() {
 
 // Gallery Functions
 function initializeGallery() {
-  // Sample gallery data - replace with your actual images
+  // Sample gallery data - only using existing images
   const galleryData = [
     {
       category: "exterior",
-      src: "assets/images/exterior1.jpg",
+      src: "./assets/images/exterior1.jpg",
       alt: "House Exterior View",
     },
     {
       category: "exterior",
-      src: "assets/images/exterior2.jpg",
+      src: "./assets/images/exterior2.jpg",
       alt: "Garden Area",
     },
     {
       category: "exterior",
-      src: "assets/images/exterior3.jpg",
+      src: "./assets/images/exterior3.jpg",
       alt: "House Surroundings",
     },
     {
       category: "exterior",
-      src: "assets/images/exterior4.jpg",
-      alt: "House Surroundings",
+      src: "./assets/images/exterior4.jpg",
+      alt: "House Front View",
     },
     {
       category: "exterior",
-      src: "assets/images/exterior5.jpg",
-      alt: "House Surroundings",
+      src: "./assets/images/exterior5.jpg",
+      alt: "Garden and Landscape",
     },
     {
       category: "exterior",
-      src: "assets/images/exterior6.jpg",
-      alt: "House Surroundings",
-    },
-    {
-      category: "rooms",
-      src: "assets/images/bedroom1.jpg",
-      alt: "Master Bedroom",
-    },
-    {
-      category: "rooms",
-      src: "assets/images/bedroom2.jpg",
-      alt: "Second Bedroom",
-    },
-    {
-      category: "rooms",
-      src: "assets/images/294213.jpg",
-      alt: "Additional Bedroom",
-    },
-    {
-      category: "kitchen",
-      src: "assets/images/907796.png",
-      alt: "Modern Kitchen",
-    },
-    {
-      category: "kitchen",
-      src: "assets/images/1377511.jpg",
-      alt: "Kitchen Dining Area",
-    },
-    {
-      category: "living",
-      src: "assets/images/76995.jpg",
-      alt: "Living Room",
-    },
-    {
-      category: "exterior",
-      src: "assets/images/photo_2025-11-14_18-26-30.jpg",
+      src: "./assets/images/exterior6.jpg",
       alt: "House Exterior Detail",
+    },
+    {
+      category: "rooms",
+      src: "./assets/images/bedroom1.jpg",
+      alt: "Master Bedroom",
     },
   ];
 
