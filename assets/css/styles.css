@@ -2,23 +2,35 @@
    CSS Variables for Easy Theming
    ========================================== */
 :root {
+    /* Main Color Palette - Mountain Green & Ocean Blue */
+    --primary-green: #4A7C59;        /* Verde montaña oscuro */
+    --primary-green-light: #6B9B7A;  /* Verde montaña claro */
+    --primary-blue: #2C5F7C;         /* Azul océano */
+    --primary-blue-light: #4A8FAD;   /* Azul mar claro */
+    --accent-turquoise: #3D9DB5;     /* Turquesa (mezcla mar/naturaleza) */
+    
+    /* Background Colors */
+    --bg-cream: #F8F9F0;             /* Crema natural */
+    --bg-light-green: #E8F3E0;       /* Verde muy claro */
+    --bg-light-blue: #E3F2F7;        /* Azul muy claro */
+    
     /* Gallery Colors */
     --gallery-bg: #ffffff;
-    --gallery-overlay: rgba(0, 0, 0, 0.3);
-    --gallery-shadow: rgba(0, 0, 0, 0.12);
-    --gallery-shadow-hover: rgba(0, 0, 0, 0.18);
+    --gallery-overlay: rgba(42, 124, 89, 0.3);
+    --gallery-shadow: rgba(44, 95, 124, 0.15);
+    --gallery-shadow-hover: rgba(44, 95, 124, 0.25);
     
     /* Navigation */
-    --nav-btn-bg: rgba(255, 255, 255, 0.9);
+    --nav-btn-bg: rgba(255, 255, 255, 0.95);
     --nav-btn-bg-hover: rgba(255, 255, 255, 1);
-    --nav-btn-icon: #333;
-    --nav-btn-shadow: rgba(0, 0, 0, 0.15);
+    --nav-btn-icon: var(--primary-blue);
+    --nav-btn-shadow: rgba(44, 95, 124, 0.2);
     
     /* Indicators */
-    --indicator-bg: rgba(255, 255, 255, 0.5);
-    --indicator-bg-hover: rgba(255, 255, 255, 0.8);
+    --indicator-bg: rgba(255, 255, 255, 0.6);
+    --indicator-bg-hover: rgba(255, 255, 255, 0.85);
     --indicator-bg-active: rgba(255, 255, 255, 1);
-    --indicator-container-bg: rgba(0, 0, 0, 0.3);
+    --indicator-container-bg: rgba(44, 95, 124, 0.4);
     
     /* Transitions */
     --transition-speed: 0.6s;
@@ -37,7 +49,7 @@ body {
     line-height: 1.6;
     color: #333;
     scroll-behavior: smooth;
-    background: linear-gradient(135deg, #F1FAEE 0%, #A8DADC 50%, #E8F4F8 100%);
+    background: linear-gradient(135deg, var(--bg-light-green) 0%, var(--bg-cream) 30%, var(--bg-light-blue) 70%, #D4E8F0 100%);
     min-height: 100vh;
 }
 
@@ -69,14 +81,14 @@ body {
 }
 
 .nav-logo h2 {
-    color: #2E86AB;
+    color: var(--primary-blue);
     font-weight: 600;
     white-space: nowrap;
     margin-right: 2rem;
 }
 
 .nav-logo i {
-    color: #F18F01;
+    color: var(--primary-green);
     margin-right: 10px;
 }
 
@@ -94,7 +106,7 @@ body {
 }
 
 .nav-link:hover {
-    color: #A23B72;
+    color: var(--primary-green);
 }
 
 .nav-link::after {
@@ -104,7 +116,7 @@ body {
     left: 0;
     width: 0;
     height: 2px;
-    background: #A23B72;
+    background: var(--primary-green);
     transition: width 0.3s ease;
 }
 
@@ -114,8 +126,8 @@ body {
 
 .language-btn {
     background: transparent;
-    border: 2px solid #2E86AB;
-    color: #2E86AB;
+    border: 2px solid var(--primary-blue);
+    color: var(--primary-blue);
     padding: 8px 16px;
     border-radius: 25px;
     cursor: pointer;
@@ -128,7 +140,7 @@ body {
 }
 
 .language-btn:hover {
-    background: #2E86AB;
+    background: var(--primary-blue);
     color: white;
     transform: translateY(-2px);
 }
@@ -172,7 +184,7 @@ body {
     overflow: hidden;
     z-index: -2;
     /* Fallback background */
-    background: linear-gradient(135deg, #A8DADC 0%, #457B9D 40%, #1D3557 80%, #F1FAEE 100%);
+    background: linear-gradient(135deg, var(--bg-light-blue) 0%, var(--primary-blue-light) 40%, var(--primary-blue) 80%, var(--bg-light-green) 100%);
 }
 
 .hero-video {
@@ -216,7 +228,7 @@ body {
     font-size: 1.2rem;
     font-weight: 300;
     margin-bottom: 1rem;
-    color: #F18F01;
+    color: var(--primary-green);
     animation: fadeInUp 1s ease 0.2s both;
 }
 
@@ -251,7 +263,7 @@ body {
 
 .feature-item i {
     font-size: 1.2rem;
-    color: #F18F01;
+    color: var(--primary-green);
 }
 
 .hero-buttons {
@@ -276,14 +288,14 @@ body {
 }
 
 .btn-primary {
-    background: #A23B72;
+    background: var(--primary-blue);
     color: white;
 }
 
 .btn-primary:hover {
-    background: #F18F01;
+    background: var(--accent-turquoise);
     transform: translateY(-2px);
-    box-shadow: 0 5px 15px rgba(162, 59, 114, 0.4);
+    box-shadow: 0 5px 15px rgba(44, 95, 124, 0.4);
 }
 
 .btn-secondary {
@@ -336,7 +348,7 @@ body {
     transform: translateX(-50%);
     width: 60px;
     height: 3px;
-    background: #457B9D;
+    background: var(--accent-turquoise);
 }
 
 .section-subtitle {
@@ -349,7 +361,7 @@ body {
 /* Gallery Section */
 .gallery-section {
     padding: 80px 0;
-    background: linear-gradient(135deg, #F1FAEE 0%, #A8DADC 100%);
+    background: linear-gradient(135deg, var(--bg-cream) 0%, var(--bg-light-blue) 100%);
     position: relative;
     overflow: hidden;
 }
@@ -399,9 +411,9 @@ body {
 
 .tab-button.active,
 .tab-button:hover {
-    background: #457B9D;
+    background: var(--primary-blue);
     color: white;
-    border-color: #457B9D;
+    border-color: var(--primary-blue);
 }
 
 /* ==========================================
@@ -554,7 +566,7 @@ body {
 }
 
 .gallery-nav-btn:focus {
-    outline: 2px solid #2E86AB;
+    outline: 2px solid var(--accent-turquoise);
     outline-offset: 2px;
 }
 
@@ -666,7 +678,7 @@ body {
 }
 
 .detail-card h3 {
-    color: #2E86AB;
+    color: var(--primary-blue);
     margin-bottom: 1.5rem;
     font-size: 1.3rem;
 }
@@ -688,16 +700,16 @@ body {
 }
 
 .detail-item i {
-    color: #457B9D;
+    color: var(--primary-blue-light);
     width: 20px;
 }
 
 .pets-not-allowed i {
-    color: #A23B72;
+    color: var(--primary-blue);
 }
 
 .pricing-card {
-    background: linear-gradient(135deg, #1D3557 0%, #457B9D 50%, #A8DADC 100%);
+    background: linear-gradient(135deg, var(--primary-blue) 0%, var(--primary-blue-light) 50%, var(--accent-turquoise) 100%);
     color: white;
 }
 
@@ -723,7 +735,7 @@ body {
 .price {
     font-size: 1.5rem;
     font-weight: 700;
-    color: #F18F01;
+    color: var(--accent-turquoise);
 }
 
 .special-offers h4 {
@@ -738,7 +750,7 @@ body {
 /* Reviews Section */
 .reviews-section {
     padding: 80px 0;
-    background: linear-gradient(135deg, #F1FAEE 0%, #A8DADC 100%);
+    background: linear-gradient(135deg, var(--bg-cream) 0%, var(--bg-light-blue) 100%);
 }
 
 .overall-rating {
@@ -807,7 +819,7 @@ body {
 }
 
 .add-review-section h3 {
-    color: #2E86AB;
+    color: var(--primary-blue);
     margin-bottom: 1rem;
     font-size: 1.5rem;
 }
@@ -844,11 +856,11 @@ body {
 }
 
 .star-label:hover {
-    color: #F18F01;
+    color: var(--primary-green);
 }
 
 .star-rating input:checked ~ .star-label {
-    color: #F18F01;
+    color: var(--primary-green);
 }
 
 .character-count {
@@ -859,7 +871,7 @@ body {
 }
 
 .character-count.warning {
-    color: #A23B72;
+    color: var(--primary-blue);
 }
 
 .review-form .btn-primary {
@@ -895,7 +907,7 @@ body {
 }
 
 .location-info h3 {
-    color: #2E86AB;
+    color: var(--primary-blue);
     margin-bottom: 1.5rem;
 }
 
@@ -916,7 +928,7 @@ body {
 }
 
 .distance-item i {
-    color: #457B9D;
+    color: var(--primary-blue-light);
     width: 20px;
 }
 
@@ -935,7 +947,7 @@ body {
     content: '✓';
     position: absolute;
     left: 0;
-    color: #457B9D;
+    color: var(--primary-green);
     font-weight: bold;
 }
 
@@ -960,13 +972,13 @@ body {
 
 .map-note i {
     margin-right: 5px;
-    color: #457B9D;
+    color: var(--primary-blue);
 }
 
 /* Contact Section */
 .contact-section {
     padding: 120px 0 80px 0;
-    background: linear-gradient(135deg, #F1FAEE 0%, #A8DADC 100%);
+    background: linear-gradient(135deg, var(--bg-cream) 0%, var(--bg-light-blue) 100%);
     position: relative;
     z-index: 10;
 }
@@ -986,7 +998,7 @@ body {
 }
 
 .contact-info h3 {
-    color: #2E86AB;
+    color: var(--primary-blue);
     margin-bottom: 1rem;
     font-size: 1.5rem;
     font-weight: 600;
@@ -1053,7 +1065,7 @@ body {
 }
 
 .booking-form h3 {
-    color: #2E86AB;
+    color: var(--primary-blue);
     margin-bottom: 1.5rem;
 }
 
@@ -1089,7 +1101,7 @@ body {
 .form-group select:focus,
 .form-group textarea:focus {
     outline: none;
-    border-color: #457B9D;
+    border-color: var(--primary-blue);
 }
 
 .form-group textarea {
@@ -1098,7 +1110,7 @@ body {
 
 /* Footer */
 .footer {
-    background: linear-gradient(135deg, #1D3557 0%, #457B9D 50%, #2E86AB 100%);
+    background: linear-gradient(135deg, var(--primary-blue) 0%, var(--primary-blue-light) 50%, var(--accent-turquoise) 100%);
     color: white;
     padding: 80px 0 20px;
     position: relative;
@@ -1125,7 +1137,7 @@ body {
 .footer-section h3,
 .footer-section h4 {
     margin-bottom: 1rem;
-    color: #F18F01;
+    color: var(--primary-green-light);
 }
 
 .footer-section p {
@@ -1148,7 +1160,7 @@ body {
 }
 
 .footer-section ul li a:hover {
-    color: #F18F01;
+    color: var(--primary-green-light);
 }
 
 .social-links {
@@ -1164,7 +1176,7 @@ body {
 }
 
 .social-links a:hover {
-    color: #F18F01;
+    color: var(--primary-green-light);
 }
 
 .footer-bottom {
