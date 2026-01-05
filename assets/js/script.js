@@ -208,10 +208,29 @@ function initializeNavigation() {
   });
 }
 
+// ==========================================
+// INSTAGRAM-STYLE GALLERY CAROUSEL
+// ==========================================
+// Features:
+// - Square aspect ratio (1:1) image container
+// - Touch swipe support with velocity-based momentum
+// - Mouse drag support for desktop
+// - Left/right navigation arrows
+// - Pagination dots with click navigation
+// - Smooth CSS transitions
+// - Keyboard navigation (arrow keys)
+// - Lazy loading images
+// - Fullscreen modal on click
+// - ARIA labels for accessibility
+// - Responsive design
+// - CSS variables for easy theming
+// ==========================================
+
 // Gallery Functions
 function initializeGallery() {
-  // Sample gallery data - only using existing images
+  // Complete gallery data with all available images
   const galleryData = [
+    // Exterior & Gardens
     {
       category: "exterior",
       src: "./assets/images/exterior1.jpg",
@@ -242,35 +261,86 @@ function initializeGallery() {
       src: "./assets/images/exterior6.jpg",
       alt: "House Exterior Detail",
     },
+    // Bedrooms
     {
       category: "rooms",
       src: "./assets/images/bedroom1.jpg",
-      alt: "Master Bedroom",
+      alt: "Master Bedroom with Ocean View",
+    },
+    {
+      category: "rooms",
+      src: "./assets/images/bedroom2.jpg",
+      alt: "Second Bedroom",
+    },
+    // Kitchen
+    {
+      category: "kitchen",
+      src: "./assets/images/kitchen1.jpg",
+      alt: "Fully Equipped Kitchen",
+    },
+    // Living Areas
+    {
+      category: "living",
+      src: "./assets/images/living1.jpg",
+      alt: "Comfortable Living Room",
+    },
+    {
+      category: "living",
+      src: "./assets/images/living2.jpg",
+      alt: "Living Area with Natural Light",
+    },
+    // Dining
+    {
+      category: "living",
+      src: "./assets/images/dining1.jpg",
+      alt: "Dining Area",
     },
   ];
 
   galleryImages = galleryData;
   populateGallery(galleryImages);
   setupGalleryTabs();
+  setupGalleryKeyboardNavigation();
 }
+
+let currentSlideIndex = 0;
+let filteredImages = [];
+let touchStartX = 0;
+let touchEndX = 0;
+let touchStartTime = 0;
+let isDragging = false;
+let dragStartX = 0;
+let dragCurrentX = 0;
 
 function populateGallery(images) {
   const galleryGrid = document.querySelector(".gallery-grid");
   if (!galleryGrid) return;
 
   galleryGrid.innerHTML = "";
+  filteredImages = images;
+  currentSlideIndex = 0;
 
   images.forEach((image, index) => {
     const galleryItem = document.createElement("div");
     galleryItem.className = "gallery-item";
+    if (index === 0) galleryItem.classList.add("active");
     galleryItem.dataset.category = image.category;
+    galleryItem.dataset.index = index;
 
-    galleryItem.innerHTML = `
-            <img src="${image.src}" alt="${image.alt}" loading="lazy" onerror="this.src='data:image/svg+xml,<svg xmlns=\\"http://www.w3.org/2000/svg\\" viewBox=\\"0 0 400 300\\"><rect width=\\"400\\" height=\\"300\\" fill=\\"%23f0f0f0\\"/><text x=\\"200\\" y=\\"150\\" text-anchor=\\"middle\\" dy=\\".3em\\" fill=\\"%23999\\">${image.alt}</text></svg>'">
-            <div class="gallery-overlay">
-                <i class="fas fa-expand"></i>
-            </div>
-        `;
+    // Create image element
+    const img = document.createElement("img");
+    img.src = image.src;
+    img.alt = image.alt;
+    img.loading = "lazy";
+
+    // Create overlay
+    const overlay = document.createElement("div");
+    overlay.className = "gallery-overlay";
+    overlay.innerHTML = '<i class="fas fa-expand"></i>';
+
+    // Append to gallery item
+    galleryItem.appendChild(img);
+    galleryItem.appendChild(overlay);
 
     galleryItem.addEventListener("click", function () {
       openGalleryModal(index);
@@ -278,6 +348,293 @@ function populateGallery(images) {
 
     galleryGrid.appendChild(galleryItem);
   });
+
+  createCarouselControls();
+  createGalleryIndicators(images.length);
+  updateGalleryIndicators();
+  setupTouchControls();
+  setupMouseDragControls();
+  setupAccessibility();
+}
+
+function createCarouselControls() {
+  const wrapper = document.querySelector(".gallery-slider-wrapper");
+  if (!wrapper) {
+    const galleryGrid = document.querySelector(".gallery-grid");
+    if (!galleryGrid || !galleryGrid.parentNode) return;
+
+    const newWrapper = document.createElement("div");
+    newWrapper.className = "gallery-slider-wrapper";
+    galleryGrid.parentNode.insertBefore(newWrapper, galleryGrid);
+    newWrapper.appendChild(galleryGrid);
+  }
+
+  const actualWrapper = document.querySelector(".gallery-slider-wrapper");
+
+  // Remove existing controls
+  const existingPrev = actualWrapper.querySelector(".gallery-prev");
+  const existingNext = actualWrapper.querySelector(".gallery-next");
+  if (existingPrev) existingPrev.remove();
+  if (existingNext) existingNext.remove();
+
+  // Create navigation buttons
+  const prevBtn = document.createElement("button");
+  prevBtn.className = "gallery-nav-btn gallery-prev";
+  prevBtn.innerHTML = '<i class="fas fa-chevron-left"></i>';
+  prevBtn.setAttribute("aria-label", "Previous image");
+  prevBtn.onclick = (e) => {
+    e.stopPropagation();
+    navigateSlide(-1);
+  };
+
+  const nextBtn = document.createElement("button");
+  nextBtn.className = "gallery-nav-btn gallery-next";
+  nextBtn.innerHTML = '<i class="fas fa-chevron-right"></i>';
+  nextBtn.setAttribute("aria-label", "Next image");
+  nextBtn.onclick = (e) => {
+    e.stopPropagation();
+    navigateSlide(1);
+  };
+
+  actualWrapper.appendChild(prevBtn);
+  actualWrapper.appendChild(nextBtn);
+}
+
+function createGalleryIndicators(count) {
+  const wrapper = document.querySelector(".gallery-slider-wrapper");
+  if (!wrapper) return;
+
+  let indicators = wrapper.querySelector(".gallery-indicators");
+
+  if (!indicators) {
+    indicators = document.createElement("div");
+    indicators.className = "gallery-indicators";
+    wrapper.appendChild(indicators);
+  }
+
+  indicators.innerHTML = "";
+
+  for (let i = 0; i < count; i++) {
+    const indicator = document.createElement("button");
+    indicator.className = "gallery-indicator";
+    indicator.setAttribute("aria-label", `Go to image ${i + 1}`);
+    indicator.onclick = (e) => {
+      e.stopPropagation();
+      goToSlide(i);
+    };
+    indicators.appendChild(indicator);
+  }
+}
+
+function navigateSlide(direction) {
+  const items = document.querySelectorAll(".gallery-item");
+  if (items.length === 0) return;
+
+  const nextIndex = currentSlideIndex + direction;
+
+  if (nextIndex < 0) {
+    goToSlide(items.length - 1);
+  } else if (nextIndex >= items.length) {
+    goToSlide(0);
+  } else {
+    goToSlide(nextIndex);
+  }
+}
+
+function goToSlide(index) {
+  const items = document.querySelectorAll(".gallery-item");
+  if (items.length === 0) return;
+
+  // Remove active class from all items
+  items.forEach((item) => {
+    item.classList.remove("active", "prev");
+  });
+
+  // Set previous slide
+  if (currentSlideIndex >= 0 && currentSlideIndex < items.length) {
+    items[currentSlideIndex].classList.add("prev");
+  }
+
+  // Set new active slide
+  currentSlideIndex = index;
+  items[currentSlideIndex].classList.add("active");
+
+  updateGalleryIndicators();
+  updateAccessibilityStatus();
+}
+
+function updateGalleryIndicators() {
+  const indicators = document.querySelectorAll(".gallery-indicator");
+  indicators.forEach((indicator, index) => {
+    if (index === currentSlideIndex) {
+      indicator.classList.add("active");
+    } else {
+      indicator.classList.remove("active");
+    }
+  });
+}
+
+function setupTouchControls() {
+  const galleryGrid = document.querySelector(".gallery-grid");
+  if (!galleryGrid) return;
+
+  let touchStartTime = 0;
+
+  galleryGrid.addEventListener(
+    "touchstart",
+    (e) => {
+      touchStartX = e.changedTouches[0].screenX;
+      touchStartTime = Date.now();
+    },
+    { passive: true }
+  );
+
+  galleryGrid.addEventListener(
+    "touchend",
+    (e) => {
+      touchEndX = e.changedTouches[0].screenX;
+      const touchDuration = Date.now() - touchStartTime;
+      handleSwipe(touchDuration);
+    },
+    { passive: true }
+  );
+}
+
+function handleSwipe(duration = 300) {
+  const swipeThreshold = 50;
+  const diff = touchStartX - touchEndX;
+  const velocity = Math.abs(diff) / duration;
+
+  // Higher velocity = faster swipe = more sensitive
+  const velocityThreshold = 0.3;
+
+  if (Math.abs(diff) > swipeThreshold || velocity > velocityThreshold) {
+    if (diff > 0) {
+      // Swipe left - next
+      navigateSlide(1);
+    } else {
+      // Swipe right - prev
+      navigateSlide(-1);
+    }
+  }
+}
+
+// ==========================================
+// Mouse Drag Support for Desktop
+// ==========================================
+function setupMouseDragControls() {
+  const galleryGrid = document.querySelector(".gallery-grid");
+  if (!galleryGrid) return;
+
+  let dragStartTime = 0;
+
+  galleryGrid.addEventListener("mousedown", (e) => {
+    isDragging = true;
+    dragStartX = e.clientX;
+    dragStartTime = Date.now();
+    galleryGrid.classList.add("dragging");
+    e.preventDefault();
+  });
+
+  galleryGrid.addEventListener("mousemove", (e) => {
+    if (!isDragging) return;
+    dragCurrentX = e.clientX;
+    e.preventDefault();
+  });
+
+  galleryGrid.addEventListener("mouseup", (e) => {
+    if (!isDragging) return;
+
+    isDragging = false;
+    galleryGrid.classList.remove("dragging");
+
+    const dragEndX = e.clientX;
+    const dragDiff = dragStartX - dragEndX;
+    const dragDuration = Date.now() - dragStartTime;
+    const velocity = Math.abs(dragDiff) / dragDuration;
+
+    const dragThreshold = 50;
+    const velocityThreshold = 0.5;
+
+    if (Math.abs(dragDiff) > dragThreshold || velocity > velocityThreshold) {
+      if (dragDiff > 0) {
+        navigateSlide(1);
+      } else {
+        navigateSlide(-1);
+      }
+    }
+
+    dragStartX = 0;
+    dragCurrentX = 0;
+  });
+
+  galleryGrid.addEventListener("mouseleave", () => {
+    if (isDragging) {
+      isDragging = false;
+      galleryGrid.classList.remove("dragging");
+    }
+  });
+
+  // Prevent accidental text selection while dragging
+  galleryGrid.addEventListener("dragstart", (e) => {
+    e.preventDefault();
+  });
+}
+
+// ==========================================
+// Accessibility Setup
+// ==========================================
+function setupAccessibility() {
+  const galleryGrid = document.querySelector(".gallery-grid");
+  const wrapper = document.querySelector(".gallery-slider-wrapper");
+
+  if (!galleryGrid || !wrapper) return;
+
+  // Add ARIA attributes
+  wrapper.setAttribute("role", "region");
+  wrapper.setAttribute("aria-label", "Image carousel");
+
+  galleryGrid.setAttribute("role", "group");
+  galleryGrid.setAttribute("aria-label", "Gallery images");
+
+  // Update aria-live region for screen readers
+  const liveRegion = document.createElement("div");
+  liveRegion.className = "sr-only";
+  liveRegion.setAttribute("aria-live", "polite");
+  liveRegion.setAttribute("aria-atomic", "true");
+  liveRegion.id = "gallery-status";
+  wrapper.appendChild(liveRegion);
+
+  updateAccessibilityStatus();
+}
+
+function updateAccessibilityStatus() {
+  const statusRegion = document.getElementById("gallery-status");
+  if (statusRegion) {
+    statusRegion.textContent = `Image ${currentSlideIndex + 1} of ${
+      filteredImages.length
+    }`;
+  }
+}
+
+function updateGalleryCounter(count) {
+  const gallerySection = document.querySelector(".gallery-section .container");
+  let counter = gallerySection.querySelector(".gallery-counter");
+
+  if (!counter) {
+    counter = document.createElement("div");
+    counter.className = "gallery-counter";
+    const wrapper = document.querySelector(".gallery-slider-wrapper");
+    if (wrapper && wrapper.parentNode) {
+      wrapper.parentNode.insertBefore(counter, wrapper.nextSibling);
+    }
+  }
+
+  counter.textContent = `${count} ${count === 1 ? "foto" : "fotos"}`;
+
+  // Center the counter
+  counter.style.display = "block";
+  counter.style.textAlign = "center";
 }
 
 function setupGalleryTabs() {
@@ -299,14 +656,40 @@ function setupGalleryTabs() {
 }
 
 function filterGallery(category) {
-  const galleryItems = document.querySelectorAll(".gallery-item");
+  let filtered;
+  if (category === "all") {
+    filtered = galleryImages;
+  } else {
+    filtered = galleryImages.filter((img) => img.category === category);
+  }
 
-  galleryItems.forEach((item) => {
-    if (category === "all" || item.dataset.category === category) {
-      item.style.display = "block";
-      item.style.animation = "fadeInUp 0.5s ease";
-    } else {
-      item.style.display = "none";
+  // Re-populate gallery with filtered images
+  populateGallery(filtered);
+
+  // Scroll to top of gallery
+  const galleryGrid = document.querySelector(".gallery-grid");
+  if (galleryGrid) {
+    galleryGrid.scrollTop = 0;
+  }
+}
+
+function setupGalleryKeyboardNavigation() {
+  document.addEventListener("keydown", function (e) {
+    const gallerySection = document.querySelector(".gallery-section");
+    if (!gallerySection) return;
+
+    // Check if gallery is in viewport
+    const rect = gallerySection.getBoundingClientRect();
+    const isVisible = rect.top < window.innerHeight && rect.bottom > 0;
+
+    if (isVisible) {
+      if (e.key === "ArrowLeft") {
+        e.preventDefault();
+        navigateSlide(-1);
+      } else if (e.key === "ArrowRight") {
+        e.preventDefault();
+        navigateSlide(1);
+      }
     }
   });
 }
